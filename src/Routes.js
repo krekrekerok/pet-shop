@@ -10,24 +10,27 @@ import CatalogPage from './pages/CatalogPage'
 import CartPage from './pages/CartPage'
 import VerifyPage from './pages/VerifyPage';
 import FavoritesPage from './pages/FavoritesPage';
+import ClientContextProvider from './context/ClientContext';
 
 const Routes = () => {
     return (
-        <AdminContextProvider>
-            <BrowserRouter>
-                <Switch>
-                    <Route exact path = "/" component = {MainPage}/>
-                    <Route exact path = "/admin" component = {AdminPage}/>
-                    <Route exact path = "/edit/:id" component = {EditPage}/>
-                    <Route exact path = "/signin" component = {SignInPage}/>
-                    <Route exact path = "/signup" component = {SignUpPage}/>
-                    <Route exact path = "/catalog" component = {CatalogPage}/>
-                    <Route exact path = "/favorites" component = {FavoritesPage}/>
-                    <Route exact path = "/cart" component = {CartPage}/>
-                    <Route exact path = "/verify" component = {VerifyPage}/>
-                </Switch>
-            </BrowserRouter>
-        </AdminContextProvider>
+        <ClientContextProvider>
+            <AdminContextProvider>
+                <BrowserRouter>
+                    <Switch>
+                        <Route exact path = "/" component = {MainPage}/>
+                        <Route exact path = "/admin" component = {AdminPage}/>
+                        <Route exact path = "/edit/:id" component = {EditPage}/>
+                        <Route exact path = "/signin" component = {SignInPage}/>
+                        <Route exact path = "/signup" component = {SignUpPage}/>
+                        <Route exact path = "/catalog" component = {CatalogPage}/>
+                        <Route exact path = "/favorites" component = {FavoritesPage}/>
+                        <Route exact path = "/cart" component = {CartPage}/>
+                        <Route exact path = "/verify" component = {VerifyPage}/>
+                    </Switch>
+                </BrowserRouter>
+            </AdminContextProvider>
+        </ClientContextProvider>
     );
 };
 
