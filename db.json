@@ -1,0 +1,12 @@
+{
+  "pets": [
+    {
+      "title": "Собака",
+      "description": "Годовалый",
+      "price": 12000,
+      "photo": "https://petsi.net/images/dogbreed/pomeranian.jpg",
+      "breed": "Шпиц",
+      "id": 1
+    }
+  ]
+}
