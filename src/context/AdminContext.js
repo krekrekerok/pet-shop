@@ -6,15 +6,15 @@ export const adminContext = React.createContext()
 
 const INIT_STATE = {
     pets: null,
-    petsToEdit: null
+    petToEdit: null
 }
 
 const reducer = (state = INIT_STATE, action) => {
     switch (action.type) {
         case "GET_PETS":
             return { ...state, pets: action.payload }
-        case "GET_PETS_TO_EDIT":
-            return { ...state, petsToEdit: action.payload }
+        case "GET_PET_TO_EDIT":
+            return { ...state, petToEdit: action.payload }
         default:
             return { ...state }
     }
@@ -42,15 +42,15 @@ const AdminContextProvider = ({ children }) => {
         getPets()
     }
 
-    const getPetsToEdit = async (id) => {
+    const getPetToEdit = async (id) => {
         const { data } = await axios(`${API}/${id}`)
         dispatch({
-            type: 'GET_PETS_TO_EDIT',
+            type: 'GET_PET_TO_EDIT',
             payload: data
         })
     }
 
-    const saveEditedPets = async (editedPet) => {
+    const saveEditedPet = async (editedPet) => {
         await axios.patch(`${API}/${editedPet.id}`, { ...editedPet, price: +editedPet.price })
         getPets()
     }
@@ -58,11 +58,12 @@ const AdminContextProvider = ({ children }) => {
     return (
         <adminContext.Provider value={{
             pets: state.pets,
+            petToEdit: state.petToEdit,
             getPets,
             createPet,
             deletePet,
-            getPetsToEdit,
-            saveEditedPets
+            getPetToEdit,
+            saveEditedPet
         }}>
             {children}
         </adminContext.Provider>
