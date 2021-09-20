@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -16,6 +16,7 @@ import StarIcon from '@material-ui/icons/Star';
 import amber from '@material-ui/core/colors/amber';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link } from 'react-router-dom';
+import { clientContext } from '../context/ClientContext';
 
 const useStyles = makeStyles((theme) => ({
   navBar: {
@@ -85,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NavBar() {
+  const {petsCountInCart} = useContext(clientContext)
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -145,26 +147,27 @@ export default function NavBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <Link to = "/cart" className = "unset">
-          <IconButton aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={4} color="secondary">
-                <ShoppingCartIcon />
-            </Badge>
-          </IconButton>
-        </Link>
-          <p>Cart</p>
-      </MenuItem>
-      <MenuItem>
-        <Link to = "/favorites" className = "unset">
-          <IconButton aria-label="show 11 new notifications" color="inherit">
-            <Badge badgeContent={11} color="secondary">
-                <StarIcon />
-            </Badge>
-          </IconButton>
-        </Link>
-          <p>Favorites</p>
-      </MenuItem>
+      <Link to = "/cart" className = "unset">
+        <MenuItem>
+            <IconButton aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={petsCountInCart} color="secondary">
+                  <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+            <p>Cart</p>
+        </MenuItem>
+      </Link>
+
+      <Link to = "/favorites" className = "unset">
+        <MenuItem>
+            <IconButton aria-label="show 11 new notifications" color="inherit">
+              <Badge badgeContent={0} color="secondary">
+                  <StarIcon />
+              </Badge>
+            </IconButton>
+            <p>Favorites</p>
+        </MenuItem>
+      </Link>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -221,14 +224,14 @@ export default function NavBar() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
+              <Badge badgeContent={petsCountInCart} color="secondary">
                 <Link to = "/cart" className = "unset">
                     <ShoppingCartIcon />
                 </Link>
               </Badge>
             </IconButton>
             <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
+              <Badge badgeContent={0} color="secondary">
                 <Link to = "/favorites" className = "unset">
                     <StarIcon />
                 </Link>

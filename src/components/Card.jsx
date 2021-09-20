@@ -52,7 +52,7 @@ export default function MediaCard({item}) {
                     {item.description}
                 </Truncate>
             </Typography>
-            <Typography variant = "h6" component = "body1">
+            <Typography variant = "h6" component = "h1">
                 Цена {item.price} сом
             </Typography>
         </CardContent>
