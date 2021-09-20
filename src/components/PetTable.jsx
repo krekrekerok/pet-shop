@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { adminContext } from '../context/AdminContext';
-import { Button } from '@material-ui/core';
+import { Button, CircularProgress } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
@@ -85,7 +85,7 @@ const useStyles = makeStyles({
                           </Table>
                           </TableContainer>
                   ) : (
-                      <h2>Loading...</h2>
+                    <CircularProgress color="secondary" />
                       )
               }
           </>

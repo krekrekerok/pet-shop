@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import { CircularProgress} from '@material-ui/core';
 import React, { useContext, useEffect } from 'react';
 import { clientContext } from '../context/ClientContext';
 import MediaCard from './Card';
@@ -23,7 +23,7 @@ const Content = () => {
                     </div>
                 </div>
             ) : (
-                <h2>Loading</h2>
+                <CircularProgress color="secondary" />
             )
         }
         </>
