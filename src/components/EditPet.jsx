@@ -5,14 +5,14 @@ import { adminContext } from '../context/AdminContext';
 
 const EditPet = () => {
 
-    const { getPetToEdit, petsToEdit, saveEditedPets } = useContext(adminContext)
-    const [editPet, setEditPet] = useState(petsToEdit)
+    const { getPetToEdit, petToEdit, saveEditedPet } = useContext(adminContext)
+    const [editPet, setEditPet] = useState(petToEdit)
     const { id } = useParams()
     const history = useHistory()
 
     useEffect(() => {
-        setEditPet(petsToEdit);
-    }, [petsToEdit])
+        setEditPet(petToEdit);
+    }, [petToEdit])
     useEffect(() => {
         getPetToEdit(id)
     }, [])
@@ -85,14 +85,14 @@ const EditPet = () => {
                                     e.preventDefault()
                                     if (
                                         !editPet.title.trim() ||
+                                        !editPet.breed.trim() ||
                                         !editPet.description.trim() ||
-                                        !editPet.price.trim() ||
-                                        !editPet.photo.trim() ||
-                                        !editPet.breed.trim()) {
+                                        !editPet.price.toString().trim() ||
+                                        !editPet.photo.trim()) {
                                         alert("Заполните все поля!")
                                         return
                                     }
-                                    saveEditedPets(editPet)
+                                    saveEditedPet(editPet)
                                     history.push('/admin')
                                 }}
                                 variant="outlined"
