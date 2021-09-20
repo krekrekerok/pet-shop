@@ -12,16 +12,18 @@ const INIT_STATE = {
 const reducer = (state = INIT_STATE, action) => {
     switch (action.type) {
         case "GET_PETS":
-            return {...state, pets: action.payload}
+            return { ...state, pets: action.payload }
+        case "GET_PETS_TO_EDIT":
+            return { ...state, petsToEdit: action.payload }
         default:
-            return {...state}
+            return { ...state }
     }
 }
 
-const AdminContextProvider = ({children}) => {
+const AdminContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, INIT_STATE)
 
-    const getPets = async() => {
+    const getPets = async () => {
         const { data } = await axios(API)
         dispatch({
             type: "GET_PETS",
@@ -29,17 +31,38 @@ const AdminContextProvider = ({children}) => {
         })
     }
 
-    const createPet = async(newPet) =>{
-        axios.post(API, {...newPet, price: +newPet.price})
+    const createPet = async (newPet) => {
+        axios.post(API, { ...newPet, price: +newPet.price })
         console.log("created");
         getPets()
     }
 
+    const deletePet = async (id) => {
+        await axios.delete(`${API}/${id}`)
+        getPets()
+    }
+
+    const getPetsToEdit = async (id) => {
+        const { data } = await axios(`${API}/${id}`)
+        dispatch({
+            type: 'GET_PETS_TO_EDIT',
+            payload: data
+        })
+    }
+
+    const saveEditedPets = async (editedPet) => {
+        await axios.patch(`${API}/${editedPet.id}`, { ...editedPet, price: +editedPet.price })
+        getPets()
+    }
+
     return (
-        <adminContext.Provider value = {{
+        <adminContext.Provider value={{
             pets: state.pets,
             getPets,
-            createPet
+            createPet,
+            deletePet,
+            getPetsToEdit,
+            saveEditedPets
         }}>
             {children}
         </adminContext.Provider>
