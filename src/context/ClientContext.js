@@ -1,18 +1,24 @@
 import axios from 'axios'
-import React, { useReducer } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import { API } from '../helpers/const'
 
 export const clientContext = React.createContext()
 
 const INIT_STATE = {
-    pets: null
 
+    pets: null,
+    breeds: []
+   
 }
 
 const reducer = (state = INIT_STATE, action) => {
     switch (action.type) {
         case "GET_PETS":
             return { ...state, pets: action.payload }
+
+        case "GET_BREEDS":
+            return { ...state, breeds: action.payload }
+
         default:
             return { ...state }
     }
@@ -50,12 +56,65 @@ const ClientContextProvider = ({ children }) => {
         }
     }
 
+
+    const getBreeds = async () => {
+        const { data } = await axios(API)
+        const arr = []
+        data.forEach(item => {
+            arr.push(item.breed)
+        })
+        let newArr = []
+        arr.forEach(elem => {
+            let check = newArr.filter(item => item.trim() === elem.trim())
+            if (check.length === 0) {
+                newArr.push(elem)
+            }
+        })
+        dispatch({
+            type: 'GET_BREEDS',
+            payload: newArr
+        })
+    }
+
+    //Pagination
+    const [posts, setPosts] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [postsPerPage] = useState(10)
+    useEffect(() => {
+        const fetchPets = () => {
+            const data = state.pets || []
+            setPosts(data)
+        }
+        fetchPets()
+
+    }, [state.pets])
+
+    const indexOfLastPost = currentPage * postsPerPage
+    const indexOfFirstPost = indexOfLastPost - postsPerPage
+    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
+    const totalPosts = posts.length
+    console.log(currentPosts);
+
+    const changePage = (newPage) => {
+        setCurrentPage(newPage)
+    }
+    //Pagination
+
+
     return (
         <clientContext.Provider value={{
             pets: state.pets,
+            breeds: state.breeds,
+            currentPosts,
+            postsPerPage,
+            totalPosts,
             getPets,
             createNewUser,
-            login
+            login,
+            getBreeds,
+            changePage
+
+
         }}>
             {children}
         </clientContext.Provider>
