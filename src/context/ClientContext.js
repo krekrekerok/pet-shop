@@ -5,17 +5,20 @@ import { API } from '../helpers/const'
 export const clientContext = React.createContext()
 
 const INIT_STATE = {
+
     pets: null,
     breeds: []
-
+   
 }
 
 const reducer = (state = INIT_STATE, action) => {
     switch (action.type) {
         case "GET_PETS":
             return { ...state, pets: action.payload }
+
         case "GET_BREEDS":
             return { ...state, breeds: action.payload }
+
         default:
             return { ...state }
     }
@@ -52,6 +55,7 @@ const ClientContextProvider = ({ children }) => {
             alert(e.response.data.message);
         }
     }
+
 
     const getBreeds = async () => {
         const { data } = await axios(API)
@@ -109,6 +113,8 @@ const ClientContextProvider = ({ children }) => {
             login,
             getBreeds,
             changePage
+
+
         }}>
             {children}
         </clientContext.Provider>
