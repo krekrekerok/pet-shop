@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -11,6 +11,7 @@ import Truncate from 'react-truncate'
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import StarIcon from '@material-ui/icons/Star';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { clientContext } from '../context/ClientContext';
 
 const useStyles = makeStyles({
   root: {
@@ -32,6 +33,7 @@ const useStyles = makeStyles({
 
 export default function MediaCard({item}) {
   const classes = useStyles();
+  const {toggleCartIcon, checkPetInCart} = useContext(clientContext)
 
   return (
     <Card className={classes.root}>
@@ -59,8 +61,12 @@ export default function MediaCard({item}) {
       </CardActionArea>
 
       <CardActions className="card-btn">
-            <Button size="small" color="primary">
-            <ShoppingCartIcon/>
+            <Button 
+              size="small" 
+              color="primary"
+              onClick={() => toggleCartIcon(item)}>
+            <ShoppingCartIcon
+              color = {checkPetInCart(item.id) ? "secondary" : "primary"}/>
             </Button>
 
             <Button size="small" color="primary">
