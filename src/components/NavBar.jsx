@@ -86,11 +86,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NavBar() {
-  const {petsCountInCart} = useContext(clientContext)
+  const {petsCountInCart, petsCountInFavorites} = useContext(clientContext)
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   console.log("petsCountInCart in navBar",petsCountInCart)
+  console.log("petsCountInFavorites in navBar",petsCountInFavorites)
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -161,7 +162,7 @@ export default function NavBar() {
       <Link to = "/favorites" className = "unset">
         <MenuItem>
             <IconButton aria-label="show 11 new notifications" color="inherit">
-              <Badge badgeContent={0} color="secondary">
+              <Badge badgeContent={petsCountInFavorites} color="secondary">
                   <StarIcon />
               </Badge>
             </IconButton>
@@ -224,20 +225,20 @@ export default function NavBar() {
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={petsCountInCart} color="secondary">
-                <Link to = "/cart" className = "unset">
-                    <ShoppingCartIcon />
-                </Link>
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={0} color="secondary">
-                <Link to = "/favorites" className = "unset">
-                    <StarIcon />
-                </Link>
-              </Badge>
-            </IconButton>
+            <Link to = "/cart" className = "unset">
+              <IconButton aria-label="show 4 new mails" color="inherit">
+                <Badge badgeContent={petsCountInCart} color="secondary">
+                      <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            </Link>
+            <Link to = "/favorites" className = "unset">
+              <IconButton aria-label="show 17 new notifications" color="inherit">
+                <Badge badgeContent={petsCountInFavorites} color="secondary">
+                      <StarIcon />
+                </Badge>
+              </IconButton>
+            </Link>
             <IconButton
               edge="end"
               aria-label="account of current user"
