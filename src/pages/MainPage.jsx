@@ -7,6 +7,7 @@ const MainPage = () => {
         <div>
             <NavBar />
             MainPage
+
         </div>
     );
 };
