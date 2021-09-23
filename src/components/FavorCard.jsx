@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Truncate from 'react-truncate'
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import StarIcon from '@material-ui/icons/Star';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+// import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { clientContext } from '../context/ClientContext';
 
 const useStyles = makeStyles({
@@ -31,9 +31,9 @@ const useStyles = makeStyles({
   }
 });
 
-export default function MediaCard({item}) {
+export default function FavorCard({item}) {
   const classes = useStyles();
-  const {toggleCartIcon, checkPetInCart, toggleStarIcon, checkPetInFavorites} = useContext(clientContext)
+  const {toggleStarIcon, checkPetInFavorites} = useContext(clientContext)
 
   return (
     <Card className={classes.root}>
@@ -64,18 +64,7 @@ export default function MediaCard({item}) {
             <Button 
               size="small" 
               color="primary"
-              onClick={() => toggleCartIcon(item)}>
-            <ShoppingCartIcon
-              color = {checkPetInCart(item.id) ? "secondary" : "primary"}/>
-            </Button>
-
-            <Button 
-              size="small" 
-              color="primary"
-              onClick={
-                ()=> {toggleStarIcon(item)
-                console.log("click on button",item)}
-                }>
+              onClick={()=> toggleStarIcon(item)}>
             <StarIcon
               color = {checkPetInFavorites(item.id) ? "secondary" : "primary"}/>
             </Button>
