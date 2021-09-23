@@ -86,7 +86,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NavBar() {
+
   const {petsCountInCart, petsCountInFavorites} = useContext(clientContext)
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -123,17 +125,17 @@ export default function NavBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-        <Link className = "unset" to = "/signin">
-            <MenuItem onClick={handleMenuClose}>Войти</MenuItem>
-        </Link>
+      <Link className="unset" to="/signin">
+        <MenuItem onClick={handleMenuClose}>Войти</MenuItem>
+      </Link>
 
-        <Link className = "unset" to = "/signup">
-            <MenuItem onClick={handleMenuClose}>Регистрация</MenuItem>
-        </Link>
-        
-        <Link className = "unset" to = "/admin">
-            <MenuItem onClick={handleMenuClose}>Admin</MenuItem>
-        </Link>
+      <Link className="unset" to="/signup">
+        <MenuItem onClick={handleMenuClose}>Регистрация</MenuItem>
+      </Link>
+
+      <Link className="unset" to="/admin">
+        <MenuItem onClick={handleMenuClose}>Admin</MenuItem>
+      </Link>
     </Menu>
   );
 
@@ -148,25 +150,27 @@ export default function NavBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <Link to = "/cart" className = "unset">
+      <Link to="/cart" className="unset">
         <MenuItem>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={petsCountInCart} color="secondary">
-                  <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
-            <p>Cart</p>
+          <IconButton aria-label="show 4 new mails" color="inherit">
+            <Badge badgeContent={petsCountInCart} color="secondary">
+              <ShoppingCartIcon />
+            </Badge>
+          </IconButton>
+          <p>Cart</p>
         </MenuItem>
       </Link>
 
-      <Link to = "/favorites" className = "unset">
+      <Link to="/favorites" className="unset">
         <MenuItem>
+
             <IconButton aria-label="show 11 new notifications" color="inherit">
               <Badge badgeContent={petsCountInFavorites} color="secondary">
                   <StarIcon />
               </Badge>
             </IconButton>
             <p>Favorites</p>
+
         </MenuItem>
       </Link>
       <MenuItem onClick={handleProfileMenuOpen}>
@@ -185,7 +189,7 @@ export default function NavBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="fixed" className = {classes.navBar}>
+      <AppBar position="fixed" className={classes.navBar}>
         <Toolbar>
           
           <IconButton
@@ -197,9 +201,9 @@ export default function NavBar() {
             <MenuIcon />
           </IconButton>
 
-          <Link className = "unset" to = "/">
+          <Link className="unset" to="/">
             <Typography className={classes.title} variant="h5" noWrap>
-                Pet Shop
+              Pet Shop
             </Typography>
           </Link>
 
@@ -217,14 +221,15 @@ export default function NavBar() {
             />
           </div>
 
-          <Link className = "unset" to = "/catalog">
+          <Link className="unset" to="/catalog">
             <Typography className={classes.title} variant="h6" noWrap>
-                Catalog
+              Catalog
             </Typography>
           </Link>
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+
             <Link to = "/cart" className = "unset">
               <IconButton aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={petsCountInCart} color="secondary">
@@ -239,6 +244,7 @@ export default function NavBar() {
                 </Badge>
               </IconButton>
             </Link>
+
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -263,7 +269,7 @@ export default function NavBar() {
           </div>
         </Toolbar>
       </AppBar>
-      <Toolbar/>
+      <Toolbar />
       {renderMobileMenu}
       {renderMenu}
     </div>
