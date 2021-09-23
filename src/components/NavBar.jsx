@@ -90,7 +90,7 @@ export default function NavBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  console.log("petsCountInCart in navBar",petsCountInCart)
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -186,6 +186,7 @@ export default function NavBar() {
     <div className={classes.grow}>
       <AppBar position="fixed" className = {classes.navBar}>
         <Toolbar>
+          
           <IconButton
             edge="start"
             className={classes.menuButton}

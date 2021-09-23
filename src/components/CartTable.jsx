@@ -18,19 +18,20 @@ const useStyles = makeStyles({
 
 export default function CartTable() {
   const classes = useStyles();
-  const {cart, getCart, changePetsCount, petsCountInCart} = useContext(clientContext)
+
+  const {cart, getCart, changePetsCount} = useContext(clientContext)
 
   useEffect(()=>{
       getCart()
     },[])
-    console.log(cart);
-    console.log(petsCountInCart);
+    console.log("Cart in cartTable",cart);
+    // console.log("petsCountInCart in cartTable",petsCountInCart);
 
   function handleChange (id, count){
       if (count < 1){
           return
       }  
-      changePetsCount(id, count)
+      changePetsCount(count, id)
     }
 
   return (
@@ -55,7 +56,7 @@ export default function CartTable() {
                                 <TableCell align="left" >Название</TableCell>
                                 <TableCell align="left">Цена</TableCell>
                                 <TableCell align="left">Фото</TableCell>
-                                <TableCell align="left">Цвет</TableCell>
+                                <TableCell align="left">Подода</TableCell>
                                 <TableCell align="left">Кол-во</TableCell>
                                 <TableCell align="left">Общая сумма</TableCell>
                             </TableRow>

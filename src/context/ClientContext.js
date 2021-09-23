@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 import { calcSubPrice, calcTotalPrice } from '../helpers/calc'
 import React, { useEffect, useReducer, useState } from 'react'
 import { API } from '../helpers/const'
@@ -34,7 +33,7 @@ const reducer = (state = INIT_STATE, action) => {
 const ClientContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, INIT_STATE)
 
-    const getPets = async () => {
+    const getPets = async() => {
         const { data } = await axios(`${API}${window.location.search}`)
         dispatch({
             type: "GET_PETS",
@@ -70,22 +69,23 @@ const ClientContextProvider = ({ children }) => {
         }
 
         cart.totalPrice = calcTotalPrice(cart.pets)
-        console.log(cart.pets);
+        console.log("cart.pets after total pricing: " ,cart.pets);
 
         localStorage.setItem("cart", JSON.stringify(cart))
-
+        console.log("cart.pets.length: ",cart.pets.length)
         dispatch({
-            action: "ADD_AND_DELETE_PET_IN_CART",
+            type: "ADD_AND_DELETE_PET_IN_CART",
             payload: cart.pets.length
         })
 
     }
+    console.log("state: ",state)
 
-    const getCart = () =>{
+    const getCart = () => {
         let cart = JSON.parse(localStorage.getItem("cart"))
         console.log("cart: ",cart);
         dispatch({
-            action: "GET_CART",
+            type: "GET_CART",
             payload: cart
         })
     }
@@ -105,7 +105,7 @@ const ClientContextProvider = ({ children }) => {
             return
         }
         cart.pets = cart.pets.map( item => {
-            if (item.pet.id = id){
+            if (item.pet.id === id){
                 item.count = count
                 item.subPrice = calcSubPrice(item)
             }
@@ -115,6 +115,7 @@ const ClientContextProvider = ({ children }) => {
         localStorage.setItem("cart", JSON.stringify(cart))
         getCart()
     }
+
     const createNewUser = async (newUser, history) => {
         try {
             const data = await axios.post('https://intense-retreat-64750.herokuapp.com/auth/registration', newUser)
