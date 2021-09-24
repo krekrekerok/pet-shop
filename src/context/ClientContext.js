@@ -26,6 +26,8 @@ const reducer = (state = INIT_STATE, action) => {
             return {...state, petsCountInCart: action.payload}
         case "CHANGE_PETS_COUNT_IN_CART":
             return {...state, petsCountInCart: action.payload}
+        case "CLEAR_CART":
+            return {...state, petsCountInCart: action.payload}
         case "GET_FAVORITES":
             return {...state, favorites: action.payload}
         case "ADD_AND_DELETE_PET_IN_FAVORITES":
@@ -253,7 +255,7 @@ const ClientContextProvider = ({ children }) => {
     //Pagination
     const [posts, setPosts] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
-    const [postsPerPage] = useState(10)
+    const [postsPerPage] = useState(7)
     useEffect(() => {
         const fetchPets = () => {
             const data = state.pets || []
@@ -274,10 +276,19 @@ const ClientContextProvider = ({ children }) => {
     }
     //Pagination
 
-    // Search start
-
-    // Search end
-
+    const clearCart = () => {
+        let emptyPetsCountInCart = 0
+        dispatch({
+            type: "CLEAR_CART",
+            payload: emptyPetsCountInCart
+        })
+    }
+    // регистрация
+    // авторизация
+    // подробнее
+    // корзина
+    // избранное
+    // оформление и оплата
 
     return (
         <clientContext.Provider value={{
@@ -303,7 +314,8 @@ const ClientContextProvider = ({ children }) => {
             toggleStarIcon,
             getFavorites,
             deleteProductFromCart,
-            deleteProductFromFavorites
+            deleteProductFromFavorites,
+            clearCart
         }}>
             {children}
         </clientContext.Provider>

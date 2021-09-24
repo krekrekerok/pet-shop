@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { clientContext } from '../context/ClientContext';
 import MediaCard from './Card';
 import FavorCard from './FavorCard';
+import Pagination from '../components/Pagination';
 
 const Content = () => {
     const { pets, getPets } = useContext(clientContext)
@@ -22,6 +23,7 @@ const Content = () => {
                             ))
                         }
                     </div>
+                    <Pagination/>
                 </div>
             ) : (
                 <CircularProgress color="secondary" />

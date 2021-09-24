@@ -13,6 +13,14 @@ code {
     monospace;
 }
 
+.content {
+  width: 80%;
+}
+
+.left-sidebar{
+  width: 20%;
+}
+
 /* admin page add component start */
 
 .add-inputs  {
@@ -75,3 +83,14 @@ a.unset {
 }
 
 /* оплаты карты end */
+
+.inpWidth::-webkit-outer-spin-button,
+.inpWidth::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.inpWidth {
+  text-align: center;
+  width: 25px;
+  height: 25px;
+}

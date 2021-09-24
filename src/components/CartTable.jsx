@@ -14,10 +14,10 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
-    maxWidth: "100%",
-    width: 800,
-    backgroundColor: "rgba(255, 255, 255, .4)",
+    minWidth: 450,
+    maxWidth: "90%",
+    width: 900,
+    backgroundColor: "rgba(255, 255, 255, .9)",
   },
   tableMain: {
     width: "100vw",
@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     marginTop: "4.4rem",
-  },
+  }
 });
 
 export default function CartTable() {
@@ -59,7 +59,7 @@ export default function CartTable() {
                                     <TableCell>№</TableCell>
                                     <TableCell align="left">Фото</TableCell>
                                     <TableCell align="left">Порода</TableCell>
-                                    <TableCell align="left">Цена за ед.</TableCell>
+                                    <TableCell align="left">За ед.</TableCell>
                                     <TableCell align="left">Кол-во</TableCell>
                                     <TableCell align="left">Общая сумма</TableCell>
                                     <TableCell align="left"></TableCell>
@@ -78,6 +78,7 @@ export default function CartTable() {
                                         <TableCell align="left">{row.pet.price} сом</TableCell>
                                         <TableCell align="left">
                                             <input 
+                                                className = "inpWidth"
                                                 type="number" 
                                                 value = {row.count}
                                                 onChange = {(e) => handleChange(row.pet.id, e.target.value)}

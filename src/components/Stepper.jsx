@@ -52,7 +52,7 @@ function getStepContent(stepIndex) {
 }
 
 export default function VerifyStepper() {
-    const {getCart} = useContext(clientContext)
+    const {getCart, clearCart} = useContext(clientContext)
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
@@ -68,6 +68,7 @@ export default function VerifyStepper() {
     const handleReset = () => {
         setActiveStep(0);
         localStorage.removeItem("cart")
+        clearCart()
         getCart()
     };
 
@@ -86,7 +87,7 @@ export default function VerifyStepper() {
                         <div align="center">
                             <Typography className={classes.instructions} variant="h3" >Оплачено</Typography>
                             <Link to='/'>
-                                <Button onClick={handleReset}>Reset</Button>
+                                <Button onClick={handleReset}>На главную</Button>
                             </Link>
                         </div>
                     ) : (
