@@ -15,11 +15,6 @@ const CartPage = () => {
             {(petsCountInCart > 0 )? (
                 <>
                 <CartTable/>
-                <Link to = "/verify" className = "unset">
-                    <Button variant="contained" color="secondary">
-                        Оформить заказ
-                    </Button>
-                </Link>
                 </>
 
             ):(
