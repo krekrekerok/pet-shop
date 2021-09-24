@@ -26,7 +26,7 @@
     },
     {
       "title": "Собака",
-      "description": "Продаются в ответственные руки щенки Сибирской Хаски.",
+      "description": "Продаются щенки Сибирской Хаски.",
       "price": 15000,
       "photo": "https://cloud.maxni.ru/tn3_0_96655000_1529022376.jpg",
       "breed": "Хаски",
@@ -71,6 +71,22 @@
       "photo": "https://petsi.net/images/dogbreed/pomeranian.jpg",
       "breed": "Шпиц",
       "id": 9
+    },
+    {
+      "title": "Собака",
+      "description": "Возраст 18 мес.Родословная РКФ, пройден плем смотр,рекомендован в разведение,развязан,есть щенки.",
+      "price": 1000,
+      "photo": "https://petsi.net/images/dogbreed/pomeranian.jpg",
+      "breed": "Шпиц",
+      "id": 10
+    },
+    {
+      "title": "Собака",
+      "description": "Возраст 18 мес.Родословная РКФ, пройден плем смотр,рекомендован в разведение,развязан,есть щенки.",
+      "price": 1000,
+      "photo": "https://petsi.net/images/dogbreed/pomeranian.jpg",
+      "breed": "Шпиц",
+      "id": 11
     }
   ]
 }

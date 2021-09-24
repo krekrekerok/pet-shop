@@ -254,7 +254,8 @@ const ClientContextProvider = ({ children }) => {
     //Pagination
     const [posts, setPosts] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
-    const [postsPerPage] = useState(6)
+    const [postsPerPage] = useState(8)
+
     useEffect(() => {
         const fetchPets = () => {
             const data = state.pets || []
@@ -264,11 +265,16 @@ const ClientContextProvider = ({ children }) => {
 
     }, [state.pets])
 
+    // state.pets - это наш массив с существующими питомцами 
+    // функция fetchPets служит для 
+
     const indexOfLastPost = currentPage * postsPerPage
     const indexOfFirstPost = indexOfLastPost - postsPerPage
+    console.log("slice",posts.slice(indexOfFirstPost, indexOfLastPost))
     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
+
     const totalPosts = posts.length
-    console.log(currentPosts);
+    console.log("pagination",currentPosts);
 
     const changePage = (newPage) => {
         setCurrentPage(newPage)
