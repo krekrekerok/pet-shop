@@ -8,18 +8,31 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { clientContext } from '../context/ClientContext';
-import { Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    minWidth: 450,
+    maxWidth: "90%",
+    width: 900,
+    backgroundColor: "rgba(255, 255, 255, .9)",
   },
+  tableMain: {
+    width: "100vw",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: "4.4rem",
+  }
 });
 
 export default function CartTable() {
   const classes = useStyles();
 
-  const {cart, getCart, changePetsCount} = useContext(clientContext)
+  const {cart, getCart, changePetsCount, deleteProductFromCart} = useContext(clientContext)
 
   useEffect(()=>{
       getCart()
@@ -38,55 +51,63 @@ export default function CartTable() {
     <>
             {
                 cart ? (
-                    // <h1>ttoott</h1>
-                        <TableContainer component={Paper} >
-                        <Table className={classes.table} aria-label="caption table">
-                            
-                            <caption>
-                                <Typography
-                                display="block"
-                                align="right">
-                                    Итого: {cart.totalPrice}
-                                </Typography>
-                            </caption>
-
-                            <TableHead>
-                            <TableRow>
-                                <TableCell>№</TableCell>
-                                <TableCell align="left" >Название</TableCell>
-                                <TableCell align="left">Цена</TableCell>
-                                <TableCell align="left">Фото</TableCell>
-                                <TableCell align="left">Подода</TableCell>
-                                <TableCell align="left">Кол-во</TableCell>
-                                <TableCell align="left">Общая сумма</TableCell>
-                            </TableRow>
-                            </TableHead>
-                            <TableBody>
-                            {cart.pets.map((row, index) => (
-                                <TableRow key={row.pet.id}>
-                                    <TableCell component="th" scope="row">
-                                        {index + 1}
-                                    </TableCell>
-                                    <TableCell align="left">{row.pet.title}</TableCell>
-                                    <TableCell align="left">{row.pet.price} сом</TableCell>
-                                    <TableCell align="left">
-                                        <img width = "100" src={row.pet.photo} alt="" />
-                                    </TableCell>
-                                    <TableCell align="left">{row.pet.breed}</TableCell>
-                                    <TableCell align="left">
-                                        <input 
-                                            type="number" 
-                                            value = {row.count}
-                                            onChange = {(e) => handleChange(row.pet.id, e.target.value)}
-                                        />
-                                    </TableCell>
-                                    <TableCell align="left">{row.subPrice}</TableCell>
-
+                    <div className={classes.tableMain}>
+                        <TableContainer className={classes.table} component={Paper} xs= {8} >
+                            <Table  aria-label=" table">
+                                <TableHead>
+                                <TableRow>
+                                    <TableCell>№</TableCell>
+                                    <TableCell align="left">Фото</TableCell>
+                                    <TableCell align="left">Порода</TableCell>
+                                    <TableCell align="left">За ед.</TableCell>
+                                    <TableCell align="left">Кол-во</TableCell>
+                                    <TableCell align="left">Общая сумма</TableCell>
+                                    <TableCell align="left"></TableCell>
                                 </TableRow>
-                            ))}
-                            </TableBody>
-                        </Table>
+                                </TableHead>
+                                <TableBody>
+                                {cart.pets.map((row, index) => (
+                                    <TableRow key={row.pet.id}>
+                                        <TableCell component="th" scope="row">
+                                            {index + 1}
+                                        </TableCell>
+                                        <TableCell align="left">
+                                            <img width = "100" src={row.pet.photo} alt="" />
+                                        </TableCell>
+                                        <TableCell align="left">{row.pet.breed}</TableCell>
+                                        <TableCell align="left">{row.pet.price} сом</TableCell>
+                                        <TableCell align="left">
+                                            <input 
+                                                className = "inpWidth"
+                                                type="number" 
+                                                value = {row.count}
+                                                onChange = {(e) => handleChange(row.pet.id, e.target.value)}
+                                            />
+                                        </TableCell>
+                                        <TableCell align="left">{row.subPrice}</TableCell>
+                                        <TableCell align="left">
+                                            <Button
+                                                onClick = {()=>deleteProductFromCart(row.pet.id)}
+                                                color = "secondary">
+                                                <HighlightOffIcon/>
+                                            </Button>
+                                        </TableCell>
+
+                                    </TableRow>
+                                ))}
+                                </TableBody>
+                            </Table>
                         </TableContainer>
+                        <Typography
+                            variant="h4">
+                            Итого: {cart.totalPrice}
+                        </Typography>
+                        <Link to = "/verify" className = "unset">
+                            <Button variant="contained" color="secondary">
+                                Оформить заказ
+                            </Button>
+                        </Link>
+                    </div>
                 ) : (
                     <h2>Loading...</h2>
                     )

@@ -1,8 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { TextField, Button } from "@material-ui/core"
+import { TextField, Button, Paper, makeStyles } from "@material-ui/core"
 import { adminContext } from '../context/AdminContext';
-
+// import { Form } from 'react-bootstrap';
+const useStyles = makeStyles((theme) => ({
+    bcg: {
+      backgroundColor: "rgba(255, 255, 255, .7)",
+  },
+  }));
 const AddPet = () => {
+    const classes = useStyles();
+
     const {createPet} = useContext(adminContext)
     const [pet, setPet] = useState({
         title: "",
@@ -22,6 +29,7 @@ const AddPet = () => {
 
     return (
         <div className = "add-inputs">
+            <Paper className = {classes.bcg}>
                 <form >
                     <TextField 
                             required
@@ -95,6 +103,7 @@ const AddPet = () => {
                             >Создать
                         </Button>
                 </form>
+            </Paper>
         </div>
     );
 };

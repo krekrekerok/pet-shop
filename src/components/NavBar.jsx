@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,21 +8,30 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import StarIcon from '@material-ui/icons/Star';
 import amber from '@material-ui/core/colors/amber';
+import grey from '@material-ui/core/colors/red';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link } from 'react-router-dom';
 import { clientContext } from '../context/ClientContext';
+import PetsIcon from '@material-ui/icons/Pets';
+import { useHistory } from 'react-router';
 
 
 const useStyles = makeStyles((theme) => ({
+  petIcon: {
+    backgroundColor: grey[50],
+    color: amber[700]
+  },
   navBar: {
     backgroundColor: amber[700],
 
+  },
+  navbarLinks: {
+    marginRight: theme.spacing(4)
   },
   grow: {
     flexGrow: 1,
@@ -90,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NavBar() {
 
-  const { petsCountInCart, petsCountInFavorites } = useContext(clientContext)
+  const {petsCountInCart, petsCountInFavorites, getPets} = useContext(clientContext)
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -190,25 +199,33 @@ export default function NavBar() {
     </Menu>
   );
 
+  const history = useHistory()
+  const [searchValue, setSearchValue] = useState()
+  
+  const filterProducts = (key, value) => {
+    let search = new URLSearchParams(history.location.search)
+    search.set(key, value)
+    let url = `${history.location.pathname}?${search.toString()}`
+    history.push(url)
+    setSearchValue(search.get('q'))
+    getPets()
+  }
+  
+  let search = new URLSearchParams(history.location.search)
+  useEffect(() => {
+    setSearchValue(search.get('q') || '')
+  }, [history.location])
+
   return (
     <div className={classes.grow}>
       <AppBar position="fixed" className={classes.navBar}>
         <Toolbar>
-
           <IconButton
             edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
+            className={classes.petIcon}
           >
-            <MenuIcon />
+            <PetsIcon fontSize = 'large'/>
           </IconButton>
-
-          <Link className="unset" to="/">
-            <Typography className={classes.title} variant="h5" noWrap>
-              Pet Shop
-            </Typography>
-          </Link>
 
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -216,6 +233,8 @@ export default function NavBar() {
             </div>
             <InputBase
               placeholder="Search…"
+              value = {searchValue}
+              onChange = {(e) => filterProducts('q', e.target.value)}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
@@ -223,12 +242,21 @@ export default function NavBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-
-          <Link className="unset" to="/catalog">
-            <Typography className={classes.title} variant="h6" noWrap>
-              Catalog
-            </Typography>
-          </Link>
+          
+          <div className ={classes.navbarLinks}>
+            <Link className="unset" to="/">
+              <Typography className={classes.title} variant="h5" noWrap >
+                About Us
+              </Typography>
+            </Link>
+            </div>
+            <div className ={classes.navbarLinks}>
+            <Link className="unset" to="/catalog">
+              <Typography className={classes.title} variant="h5" noWrap>
+                Catalog
+              </Typography>
+            </Link>
+          </div>
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
