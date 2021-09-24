@@ -8,10 +8,10 @@ export const clientContext = React.createContext()
 const INIT_STATE = {
 
     pets: null,
-    petsCountInCart: JSON.parse(localStorage.getItem("cart")) ? JSON.parse(localStorage.getItem("cart")).pets.length : 0,
-    petsCountInFavorites: JSON.parse(localStorage.getItem("favorites")) ? JSON.parse(localStorage.getItem("favorites")).pets.length : 0,
-    favorites: [],
     cart: null,
+    petsCountInCart: JSON.parse(localStorage.getItem("cart")) ? JSON.parse(localStorage.getItem("cart")).pets.length : 0,
+    favorites: null,
+    petsCountInFavorites: JSON.parse(localStorage.getItem("favorites")) ? JSON.parse(localStorage.getItem("favorites")).pets.length : 0,
     breeds: []
    
 }
@@ -20,14 +20,18 @@ const reducer = (state = INIT_STATE, action) => {
     switch (action.type) {
         case "GET_PETS":
             return {...state, pets: action.payload}
-        case "ADD_AND_DELETE_PET_IN_CART":
-            return {...state, petsCountInCart: action.payload}
-        case "ADD_AND_DELETE_PET_IN_FAVORITES":
-            return {...state, petsCountInFavorites: action.payload}
         case "GET_CART":
             return {...state, cart: action.payload}
+        case "ADD_AND_DELETE_PET_IN_CART":
+            return {...state, petsCountInCart: action.payload}
+        case "CHANGE_PETS_COUNT_IN_CART":
+            return {...state, petsCountInCart: action.payload}
         case "GET_FAVORITES":
             return {...state, favorites: action.payload}
+        case "ADD_AND_DELETE_PET_IN_FAVORITES":
+            return {...state, petsCountInFavorites: action.payload}
+        case "CHANGE_PETS_COUNT_IN_FAVORITES":
+            return {...state, petsCountInFavorites: action.payload}
         case "GET_BREEDS":
             return { ...state, breeds: action.payload }
 
@@ -87,10 +91,24 @@ const ClientContextProvider = ({ children }) => {
     }
     console.log("state: ",state)
 
+    const deleteProductFromCart =(id) => {
+        let petToDelete = JSON.parse(localStorage.getItem("cart"))
+        petToDelete.pets = petToDelete.pets.filter((item) => item.pet.id !== id)
+        console.log("pet is deleted from cart");
+        petToDelete.totalPrice = calcTotalPrice(petToDelete.pets)
+        localStorage.setItem("cart", JSON.stringify(petToDelete))
+        getCart()
+        dispatch({
+            type: "CHANGE_PETS_COUNT_IN_CART",
+            payload: petToDelete.pets.length
+        })
+    }
+
     // для избранного
     const toggleStarIcon = (pet) => {
-        // console.log("button click toggle pet", pet);
+        console.log("button click toggle pet", pet);
         let favorites = JSON.parse(localStorage.getItem("favorites"))
+        console.log("button click toggle favorites", favorites);
         if (!favorites){
             favorites = {
                 pets: []
@@ -122,6 +140,19 @@ const ClientContextProvider = ({ children }) => {
 
     }
     // console.log("state: ",state)
+
+    const deleteProductFromFavorites =(id) => {
+        let petToDelete = JSON.parse(localStorage.getItem("favorites"))
+        petToDelete.pets = petToDelete.pets.filter((item) => item.pet.id !== id)
+        console.log("pet is deleted from favorites");
+        petToDelete.totalPrice = calcTotalPrice(petToDelete.pets)
+        localStorage.setItem("favorites", JSON.stringify(petToDelete))
+        getFavorites()
+        dispatch({
+            type: "CHANGE_PETS_COUNT_IN_FAVORITES",
+            payload: petToDelete.pets.length
+        })
+    }
 
     const getCart = () => {
         let cart = JSON.parse(localStorage.getItem("cart"))
@@ -248,6 +279,7 @@ const ClientContextProvider = ({ children }) => {
         <clientContext.Provider value={{
             pets: state.pets,
             cart: state.cart,
+            favorites: state.favorites,
             petsCountInCart: state.petsCountInCart,
             petsCountInFavorites: state.petsCountInFavorites,
             breeds: state.breeds,
@@ -265,7 +297,9 @@ const ClientContextProvider = ({ children }) => {
             changePage,
             checkPetInFavorites,
             toggleStarIcon,
-            getFavorites
+            getFavorites,
+            deleteProductFromCart,
+            deleteProductFromFavorites
         }}>
             {children}
         </clientContext.Provider>
