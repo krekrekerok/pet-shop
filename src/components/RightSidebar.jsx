@@ -35,7 +35,7 @@ const RightSidebar = () => {
     const resetFilter = () => {
         setPrice('')
         setBreed('')
-        history.push('/')
+        history.push('/catalog')
         getPets()
     }
 

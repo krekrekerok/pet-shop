@@ -194,7 +194,7 @@ export default function NavBar() {
     <div className={classes.grow}>
       <AppBar position="fixed" className={classes.navBar}>
         <Toolbar>
-
+          {/*           
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -202,13 +202,9 @@ export default function NavBar() {
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
 
-          <Link className="unset" to="/">
-            <Typography className={classes.title} variant="h5" noWrap>
-              Pet Shop
-            </Typography>
-          </Link>
+
 
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -224,8 +220,16 @@ export default function NavBar() {
             />
           </div>
 
+          <Link className="unset" to="/">
+            <Typography className={classes.title} variant="h5" noWrap >
+              About Us
+            </Typography>
+          </Link>
+          <div>
+
+          </div>
           <Link className="unset" to="/catalog">
-            <Typography className={classes.title} variant="h6" noWrap>
+            <Typography className={classes.title} variant="h5" noWrap>
               Catalog
             </Typography>
           </Link>
