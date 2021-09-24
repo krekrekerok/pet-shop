@@ -1,9 +1,12 @@
 import { Container, Typography } from '@material-ui/core';
-import React from 'react';
-import Content from '../components/Content';
+import React, { useContext } from 'react';
+// import MediaCard from '../components/Card';
+import FavoritesList from '../components/FavoritesList';
 import NavBar from '../components/NavBar';
+import { clientContext } from '../context/ClientContext';
 
 const FavoritesPage = () => {
+    const {petsCountInFavorites} = useContext(clientContext)
     return (
         <div>
             <NavBar/>
@@ -11,9 +14,15 @@ const FavoritesPage = () => {
                 <Typography variant="h4" component="h2" align="center">
                     Favorites Page
                 </Typography>
-                <div className="main">
-                    Тут звездочки
-                </div>
+                {(petsCountInFavorites > 0 )? (
+                    <>
+                        <FavoritesList/>
+                    </>
+                    ):(
+                        <Typography variant = "h6" component = "h2" align = "center">
+                                No Favorites
+                        </Typography>
+                )}
             </Container>
         </div>
     );
