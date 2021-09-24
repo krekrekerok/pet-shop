@@ -25,14 +25,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-<<<<<<< HEAD:src/components/LeftSidebar.jsx
-const LeftSidebar = () => {
-    const classes = useStyles();
-    const [openPrice, setOpenPrice] = React.useState(false);
-    const [openBreed, setOpenBreed] = React.useState(false);
-=======
-const RightSidebar = () => {
->>>>>>> dff21f69db12c310ad2b803f03c8ca290ebefe37:src/components/RightSidebar.jsx
+    const RightSidebar = () => {
+        const classes = useStyles();
+        const [openPrice, setOpenPrice] = React.useState(false);
+        const [openBreed, setOpenBreed] = React.useState(false);
 
     const [price, setPrice] = useState('')
     const [breed, setBreed] = useState('')
