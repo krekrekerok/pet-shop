@@ -222,7 +222,7 @@ const ClientContextProvider = ({ children }) => {
     const login = async (user, history) => {
         try {
             const { data } = await axios.post('https://intense-retreat-64750.herokuapp.com/auth/login', user)
-            console.log(data);
+            console.log(data.token);
             history.push("/");
         }
         catch (e) {
@@ -273,6 +273,10 @@ const ClientContextProvider = ({ children }) => {
         setCurrentPage(newPage)
     }
     //Pagination
+
+    // Search start
+
+    // Search end
 
 
     return (

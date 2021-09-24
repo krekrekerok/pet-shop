@@ -26,8 +26,8 @@ const useStyles = makeStyles({
   },
   media: {
     height: 130,
-    backgroundSize: "contain",
-    backgroundColor: "rgb(197, 199, 214)"
+    backgroundSize: "cover",
+    backgroundColor: "#bbaa90"
   }
 });
 
