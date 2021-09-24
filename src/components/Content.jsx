@@ -1,4 +1,4 @@
-import { CircularProgress} from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 import React, { useContext, useEffect } from 'react';
 import { clientContext } from '../context/ClientContext';
 import MediaCard from './Card';
@@ -6,29 +6,28 @@ import FavorCard from './FavorCard';
 import Pagination from '../components/Pagination';
 
 const Content = () => {
-    const { pets, getPets } = useContext(clientContext)
+    const { pets, getPets, currentPosts } = useContext(clientContext)
 
-    useEffect( ()=> {
+    useEffect(() => {
         getPets()
-    },[])
+    }, [])
     return (
         <>
-        {    
-            pets ? (
-                <div className = "content">
-                    <div className="content-block">
-                        {
-                            pets.map(item =>(
-                                <MediaCard item = {item} key = {item.id}/>
-                            ))
-                        }
+            {
+                pets ? (
+                    <div className="content">
+                        <div className="content-block">
+                            {
+                                currentPosts.map(item => (
+                                    <MediaCard item={item} key={item.id} />
+                                ))
+                            }
+                        </div>
                     </div>
-                    <Pagination/>
-                </div>
-            ) : (
-                <CircularProgress color="secondary" />
-            )
-        }
+                ) : (
+                    <CircularProgress color="secondary" />
+                )
+            }
         </>
     );
 };

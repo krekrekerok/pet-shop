@@ -6,14 +6,13 @@ import { API } from '../helpers/const'
 export const clientContext = React.createContext()
 
 const INIT_STATE = {
-
     pets: null,
     cart: null,
     petsCountInCart: JSON.parse(localStorage.getItem("cart")) ? JSON.parse(localStorage.getItem("cart")).pets.length : 0,
     favorites: null,
     petsCountInFavorites: JSON.parse(localStorage.getItem("favorites")) ? JSON.parse(localStorage.getItem("favorites")).pets.length : 0,
     breeds: []
-   
+
 }
 
 const reducer = (state = INIT_STATE, action) => {
@@ -45,7 +44,7 @@ const reducer = (state = INIT_STATE, action) => {
 const ClientContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, INIT_STATE)
 
-    const getPets = async() => {
+    const getPets = async () => {
         const { data } = await axios(`${API}${window.location.search}`)
         dispatch({
             type: "GET_PETS",
@@ -55,7 +54,7 @@ const ClientContextProvider = ({ children }) => {
 
     const toggleCartIcon = (pet) => {
         let cart = JSON.parse(localStorage.getItem("cart"))
-        if (!cart){
+        if (!cart) {
             cart = {
                 pets: [],
                 totalPrice: 0
@@ -75,7 +74,7 @@ const ClientContextProvider = ({ children }) => {
         if (newCart.length) {
             cart.pets = cart.pets.filter(item => item.pet.id !== pet.id)
             console.log(newPet, "removed from cart");
-        }else{
+        } else {
             cart.pets.push(newPet)
             console.log(newPet, "Added to cart");
         }
@@ -91,7 +90,7 @@ const ClientContextProvider = ({ children }) => {
         })
 
     }
-    console.log("state: ",state)
+    console.log("state: ", state)
 
     const deleteProductFromCart =(id) => {
         let petToDelete = JSON.parse(localStorage.getItem("cart"))
@@ -116,25 +115,25 @@ const ClientContextProvider = ({ children }) => {
                 pets: []
             }
         }
-        
+
         let newPet = {
             pet: pet,
             count: 1
         }
-        
-        
+
+
         let newFavorite = favorites.pets.filter(item => item.pet.id === pet.id)
-        
+
         if (newFavorite.length) {
             favorites.pets = favorites.pets.filter(item => item.pet.id !== pet.id)
             console.log(newPet, "removed from favorites");
-        }else{
+        } else {
             favorites.pets.push(newPet)
             console.log(newPet, "Added to favorites");
         }
-        
+
         localStorage.setItem("favorites", JSON.stringify(favorites))
-        console.log("favorites.pets.length: ",favorites.pets.length)
+        console.log("favorites.pets.length: ", favorites.pets.length)
         dispatch({
             type: "ADD_AND_DELETE_PET_IN_FAVORITES",
             payload: favorites.pets.length
@@ -158,7 +157,7 @@ const ClientContextProvider = ({ children }) => {
 
     const getCart = () => {
         let cart = JSON.parse(localStorage.getItem("cart"))
-        console.log("cart: ",cart);
+        console.log("cart: ", cart);
         dispatch({
             type: "GET_CART",
             payload: cart
@@ -167,7 +166,7 @@ const ClientContextProvider = ({ children }) => {
 
     const getFavorites = () => {
         let favorites = JSON.parse(localStorage.getItem("favorites"))
-        console.log("Favorites",favorites);
+        console.log("Favorites", favorites);
         dispatch({
             type: "GET_FAVORITES",
             payload: favorites
@@ -177,7 +176,7 @@ const ClientContextProvider = ({ children }) => {
 
     const checkPetInCart = (id) => {
         let cart = JSON.parse(localStorage.getItem("cart"))
-        if (!cart){
+        if (!cart) {
             return false
         }
         let newCart = cart.pets.filter(item => item.pet.id === id)
@@ -186,7 +185,7 @@ const ClientContextProvider = ({ children }) => {
 
     const checkPetInFavorites = (id) => {
         let favorites = JSON.parse(localStorage.getItem("favorites"))
-        if (!favorites){
+        if (!favorites) {
             return false
         }
         let newFavorites = favorites.pets.filter(item => item.pet.id === id)
@@ -195,11 +194,11 @@ const ClientContextProvider = ({ children }) => {
 
     const changePetsCount = (count, id) => {
         let cart = JSON.parse(localStorage.getItem("cart"))
-        if (!cart){
+        if (!cart) {
             return
         }
-        cart.pets = cart.pets.map( item => {
-            if (item.pet.id === id){
+        cart.pets = cart.pets.map(item => {
+            if (item.pet.id === id) {
                 item.count = count
                 item.subPrice = calcSubPrice(item)
             }
@@ -255,7 +254,7 @@ const ClientContextProvider = ({ children }) => {
     //Pagination
     const [posts, setPosts] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
-    const [postsPerPage] = useState(7)
+    const [postsPerPage] = useState(6)
     useEffect(() => {
         const fetchPets = () => {
             const data = state.pets || []
