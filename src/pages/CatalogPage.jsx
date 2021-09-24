@@ -1,8 +1,9 @@
 import { Container, Typography } from '@material-ui/core';
 import React from 'react';
 import Content from '../components/Content';
-import LeftSidebar from '../components/LeftSidebar';
+import RightSidebar from '../components/RightSidebar';
 import NavBar from '../components/NavBar';
+import Pagination from '../components/Pagination';
 
 const CatalogPage = () => {
     return (
@@ -14,8 +15,9 @@ const CatalogPage = () => {
                 </Typography>
                 <div className="main">
                     <Content />
-                    <LeftSidebar />
+                    <RightSidebar />
                 </div>
+                <Pagination />
             </Container>
         </div>
     );

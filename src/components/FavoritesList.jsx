@@ -1,34 +1,39 @@
 import { CircularProgress } from '@material-ui/core';
 import React, { useContext, useEffect } from 'react';
 import { clientContext } from '../context/ClientContext';
-import MediaCard from './Card';
 import FavorCard from './FavorCard';
 
-const Content = () => {
-    const { pets, getPets, currentPosts } = useContext(clientContext)
+const FavoritesList = () => {
+    const {favorites, getFavorites} = useContext(clientContext)
 
-    useEffect(() => {
-        getPets()
-    }, [])
+    useEffect(()=>{
+        getFavorites()
+    },[])
+
+    console.log("favorite in Favorites List",favorites);
+
     return (
-        <>
+        <div>
+            <>
             {
-                pets ? (
+                favorites ? (
                     <div className="content">
                         <div className="content-block">
                             {
-                                currentPosts.map(item => (
-                                    <MediaCard item={item} key={item.id} />
+                                favorites.pets.map(item =>(
+                                    <FavorCard item = {item} key = {item.id}/>
                                 ))
                             }
                         </div>
                     </div>
+
                 ) : (
                     <CircularProgress color="secondary" />
                 )
             }
-        </>
+            </>
+        </div>
     );
 };
 
-export default Content;
+export default FavoritesList;

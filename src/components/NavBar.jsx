@@ -18,9 +18,11 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link } from 'react-router-dom';
 import { clientContext } from '../context/ClientContext';
 
+
 const useStyles = makeStyles((theme) => ({
   navBar: {
-    backgroundColor: amber[700]
+    backgroundColor: amber[700],
+
   },
   grow: {
     flexGrow: 1,
@@ -35,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   search: {
+    fontFamily: 'Bungee Inline',
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.black, 0.25),
@@ -86,11 +89,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NavBar() {
-  const { petsCountInCart } = useContext(clientContext)
+
+  const { petsCountInCart, petsCountInFavorites } = useContext(clientContext)
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  console.log("petsCountInCart in navBar",petsCountInCart)
+  console.log("petsCountInCart in navBar", petsCountInCart)
+  console.log("petsCountInFavorites in navBar", petsCountInFavorites)
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -160,12 +166,14 @@ export default function NavBar() {
 
       <Link to="/favorites" className="unset">
         <MenuItem>
+
           <IconButton aria-label="show 11 new notifications" color="inherit">
-            <Badge badgeContent={0} color="secondary">
+            <Badge badgeContent={petsCountInFavorites} color="secondary">
               <StarIcon />
             </Badge>
           </IconButton>
           <p>Favorites</p>
+
         </MenuItem>
       </Link>
       <MenuItem onClick={handleProfileMenuOpen}>
@@ -186,7 +194,7 @@ export default function NavBar() {
     <div className={classes.grow}>
       <AppBar position="fixed" className={classes.navBar}>
         <Toolbar>
-          
+
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -224,20 +232,22 @@ export default function NavBar() {
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={petsCountInCart} color="secondary">
-                <Link to="/cart" className="unset">
+
+            <Link to="/cart" className="unset">
+              <IconButton aria-label="show 4 new mails" color="inherit">
+                <Badge badgeContent={petsCountInCart} color="secondary">
                   <ShoppingCartIcon />
-                </Link>
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={0} color="secondary">
-                <Link to="/favorites" className="unset">
+                </Badge>
+              </IconButton>
+            </Link>
+            <Link to="/favorites" className="unset">
+              <IconButton aria-label="show 17 new notifications" color="inherit">
+                <Badge badgeContent={petsCountInFavorites} color="secondary">
                   <StarIcon />
-                </Link>
-              </Badge>
-            </IconButton>
+                </Badge>
+              </IconButton>
+            </Link>
+
             <IconButton
               edge="end"
               aria-label="account of current user"

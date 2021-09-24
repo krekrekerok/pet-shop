@@ -8,7 +8,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { clientContext } from '../context/ClientContext';
 
-const LeftSidebar = () => {
+const RightSidebar = () => {
 
     const [price, setPrice] = useState('')
     const [breed, setBreed] = useState('')
@@ -68,4 +68,4 @@ const LeftSidebar = () => {
     );
 };
 
-export default LeftSidebar;
+export default RightSidebar;

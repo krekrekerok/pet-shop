@@ -8,6 +8,8 @@ export const clientContext = React.createContext()
 const INIT_STATE = {
     pets: null,
     petsCountInCart: JSON.parse(localStorage.getItem("cart")) ? JSON.parse(localStorage.getItem("cart")).pets.length : 0,
+    petsCountInFavorites: JSON.parse(localStorage.getItem("favorites")) ? JSON.parse(localStorage.getItem("favorites")).pets.length : 0,
+    favorites: [],
     cart: null,
     breeds: []
 
@@ -19,8 +21,12 @@ const reducer = (state = INIT_STATE, action) => {
             return { ...state, pets: action.payload }
         case "ADD_AND_DELETE_PET_IN_CART":
             return { ...state, petsCountInCart: action.payload }
+        case "ADD_AND_DELETE_PET_IN_FAVORITES":
+            return { ...state, petsCountInFavorites: action.payload }
         case "GET_CART":
             return { ...state, cart: action.payload }
+        case "GET_FAVORITES":
+            return { ...state, favorites: action.payload }
         case "GET_BREEDS":
             return { ...state, breeds: action.payload }
 
@@ -68,10 +74,10 @@ const ClientContextProvider = ({ children }) => {
         }
 
         cart.totalPrice = calcTotalPrice(cart.pets)
-        console.log("cart.pets after total pricing: ", cart.pets);
+        // console.log("cart.pets after total pricing: " ,cart.pets);
 
         localStorage.setItem("cart", JSON.stringify(cart))
-        console.log("cart.pets.length: ", cart.pets.length)
+        // console.log("cart.pets.length: ",cart.pets.length)
         dispatch({
             type: "ADD_AND_DELETE_PET_IN_CART",
             payload: cart.pets.length
@@ -79,6 +85,42 @@ const ClientContextProvider = ({ children }) => {
 
     }
     console.log("state: ", state)
+
+    // для избранного
+    const toggleStarIcon = (pet) => {
+        // console.log("button click toggle pet", pet);
+        let favorites = JSON.parse(localStorage.getItem("favorites"))
+        if (!favorites) {
+            favorites = {
+                pets: []
+            }
+        }
+
+        let newPet = {
+            pet: pet,
+            count: 1
+        }
+
+
+        let newFavorite = favorites.pets.filter(item => item.pet.id === pet.id)
+
+        if (newFavorite.length) {
+            favorites.pets = favorites.pets.filter(item => item.pet.id !== pet.id)
+            console.log(newPet, "removed from favorites");
+        } else {
+            favorites.pets.push(newPet)
+            console.log(newPet, "Added to favorites");
+        }
+
+        localStorage.setItem("favorites", JSON.stringify(favorites))
+        console.log("favorites.pets.length: ", favorites.pets.length)
+        dispatch({
+            type: "ADD_AND_DELETE_PET_IN_FAVORITES",
+            payload: favorites.pets.length
+        })
+
+    }
+    // console.log("state: ",state)
 
     const getCart = () => {
         let cart = JSON.parse(localStorage.getItem("cart"))
@@ -89,6 +131,16 @@ const ClientContextProvider = ({ children }) => {
         })
     }
 
+    const getFavorites = () => {
+        let favorites = JSON.parse(localStorage.getItem("favorites"))
+        console.log("Favorites", favorites);
+        dispatch({
+            type: "GET_FAVORITES",
+            payload: favorites
+        })
+    }
+
+
     const checkPetInCart = (id) => {
         let cart = JSON.parse(localStorage.getItem("cart"))
         if (!cart) {
@@ -96,6 +148,15 @@ const ClientContextProvider = ({ children }) => {
         }
         let newCart = cart.pets.filter(item => item.pet.id === id)
         return newCart.length ? true : false
+    }
+
+    const checkPetInFavorites = (id) => {
+        let favorites = JSON.parse(localStorage.getItem("favorites"))
+        if (!favorites) {
+            return false
+        }
+        let newFavorites = favorites.pets.filter(item => item.pet.id === id)
+        return newFavorites.length ? true : false
     }
 
     const changePetsCount = (count, id) => {
@@ -129,6 +190,7 @@ const ClientContextProvider = ({ children }) => {
     const login = async (user, history) => {
         try {
             const { data } = await axios.post('https://intense-retreat-64750.herokuapp.com/auth/login', user)
+            console.log(data);
             history.push("/");
         }
         catch (e) {
@@ -159,7 +221,7 @@ const ClientContextProvider = ({ children }) => {
     //Pagination
     const [posts, setPosts] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
-    const [postsPerPage] = useState(10)
+    const [postsPerPage] = useState(6)
     useEffect(() => {
         const fetchPets = () => {
             const data = state.pets || []
@@ -186,6 +248,7 @@ const ClientContextProvider = ({ children }) => {
             pets: state.pets,
             cart: state.cart,
             petsCountInCart: state.petsCountInCart,
+            petsCountInFavorites: state.petsCountInFavorites,
             breeds: state.breeds,
             currentPosts,
             postsPerPage,
@@ -198,7 +261,10 @@ const ClientContextProvider = ({ children }) => {
             createNewUser,
             login,
             getBreeds,
-            changePage
+            changePage,
+            checkPetInFavorites,
+            toggleStarIcon,
+            getFavorites
         }}>
             {children}
         </clientContext.Provider>
