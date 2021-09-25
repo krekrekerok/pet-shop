@@ -77,20 +77,6 @@ const FavoritesList = () => {
                                         </CardActionArea>
 
                                         <CardActions className="card-btn">
-                                                <Button 
-                                                size="small" 
-                                                color="primary"
-                                                onClick={()=> toggleStarIcon(item.pet)}>
-                                                    <StarIcon
-                                                        color = {checkPetInFavorites(item.pet.id) ? "secondary" : "primary"}
-                                                        
-                                                    />
-                                                </Button>
-
-                                                <Button size="small" color="primary">
-                                                    <ChatBubbleOutlineIcon/>
-                                                </Button>
-
                                                 <Button
                                                     onClick = {()=>deleteProductFromFavorites(item.pet.id)}
                                                     color = "secondary">

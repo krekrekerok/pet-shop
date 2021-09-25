@@ -9,6 +9,7 @@ const Content = () => {
     useEffect(() => {
         getPets()
     }, [])
+    
     return (
         <>
             {

@@ -29,7 +29,10 @@ code {
 .add-inputs  {
   display: flex;
   justify-content: center;
+  background-color: rgba(255, 255, 255, .9),
+
 }
+
 
 .add-inputs form {
   display: flex;
@@ -66,6 +69,7 @@ a.unset {
 .content-block {
   display: flex;
   flex-wrap: wrap;
+  margin: 20px;
 } 
 
 /* main page end */
@@ -73,7 +77,7 @@ a.unset {
 /* card start */
 
 .card-btn{
-  justify-content: center;
+  justify-content: space-around;
 }
 
 /* card end */

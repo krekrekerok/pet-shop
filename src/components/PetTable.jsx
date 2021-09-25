@@ -13,8 +13,19 @@ import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     table: {
-        minWidth: 650,
-    },
+        minWidth: 450,
+        maxWidth: "100%",
+        width: 900,
+        backgroundColor: "rgba(255, 255, 255, .7)",
+      },
+      tableMain: {
+        width: "100vw",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginTop: "4.4rem",
+      }
 });
 
 
@@ -32,19 +43,19 @@ export default function PetTable() {
         <>
             {
                 pets ? (
-                    <TableContainer component={Paper}>
-                        <Table className={classes.table} aria-label="caption table">
-                            <caption>A caption line</caption>
+                    <div className={classes.tableMain}>
+                    <TableContainer className={classes.table} component={Paper}>
+                        <Table  aria-label="caption">
                             <TableHead>
                                 <TableRow>
                                     <TableCell>№</TableCell>
-                                    <TableCell align="left">Питомец</TableCell>
-                                    <TableCell align="left">Порода</TableCell>
-                                    <TableCell align="left">Описание</TableCell>
-                                    <TableCell align="left">Цена</TableCell>
-                                    <TableCell align="left">Фото</TableCell>
-                                    <TableCell align="left"></TableCell>
-                                    <TableCell align="left"></TableCell>
+                                    <TableCell align="center">Питомец</TableCell>
+                                    <TableCell align="center">Порода</TableCell>
+                                    <TableCell align="center">Описание</TableCell>
+                                    <TableCell align="center">Цена</TableCell>
+                                    <TableCell align="center">Фото</TableCell>
+                                    <TableCell align="center"></TableCell>
+                                    <TableCell align="center"></TableCell>
 
                                 </TableRow>
                             </TableHead>
@@ -88,6 +99,7 @@ export default function PetTable() {
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    </div>
                 ) : (
                     <CircularProgress color="secondary" />
                 )

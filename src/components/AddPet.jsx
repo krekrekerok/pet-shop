@@ -1,11 +1,20 @@
 import React, { useContext, useState } from 'react';
 import { TextField, Button, Paper, makeStyles } from "@material-ui/core"
 import { adminContext } from '../context/AdminContext';
+import { amber, grey } from '@material-ui/core/colors';
 // import { Form } from 'react-bootstrap';
 const useStyles = makeStyles((theme) => ({
     bcg: {
       backgroundColor: "rgba(255, 255, 255, .7)",
   },
+  forInp:{
+      margin: 5
+  },
+  btnColor: {
+      backgroundColor: amber[50],
+      color: amber[900]
+  }
+  
   }));
 const AddPet = () => {
     const classes = useStyles();
@@ -30,8 +39,9 @@ const AddPet = () => {
     return (
         <div className = "add-inputs">
             <Paper className = {classes.bcg}>
-                <form >
+                <form>
                     <TextField 
+                            className = {classes.forInp}
                             required
                             variant="outlined"
                             value = {pet.title}
@@ -41,6 +51,7 @@ const AddPet = () => {
                             onChange = {handleInputs}
                         />
                     <TextField 
+                            className = {classes.forInp}
                             required
                             variant="outlined"
                             value = {pet.breed}
@@ -50,6 +61,7 @@ const AddPet = () => {
                             onChange = {handleInputs}
                         />
                     <TextField 
+                            className = {classes.forInp}
                             required
                             variant="outlined"
                             value = {pet.description}
@@ -57,8 +69,10 @@ const AddPet = () => {
                             label="Описание" 
                             name = "description" 
                             onChange = {handleInputs}
+                            multiline
                         />
                     <TextField 
+                            className = {classes.forInp}
                             type = "number"
                             required
                             variant="outlined"
@@ -69,6 +83,7 @@ const AddPet = () => {
                             onChange = {handleInputs}
                         />
                     <TextField 
+                            className = {classes.forInp}
                             required
                             variant="outlined"
                             value = {pet.photo}
@@ -99,7 +114,7 @@ const AddPet = () => {
                                 })
                             }}
                             variant="outlined" 
-                            color="primary"
+                            className = {classes.btnColor}
                             >Создать
                         </Button>
                 </form>

@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(3),
     },
+    inpBgc:{
+        backgroundColor: "rgba(255, 255, 255, .8)",
+    },
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
@@ -93,6 +96,7 @@ export default function SignUpPage() {
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                className={classes.inpBgc}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -106,6 +110,7 @@ export default function SignUpPage() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                className={classes.inpBgc}
                             />
                         </Grid>
                         <Grid item xs={12}>
