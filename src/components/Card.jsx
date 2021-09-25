@@ -15,11 +15,11 @@ import { clientContext } from '../context/ClientContext';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 210,
+    maxWidth: 230,
     minWidth: 210,
     margin: "0 10px 10px 10px",
-    width: 210,
-    height: 290,
+    width: 250,
+    height: 310,
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between"
@@ -79,10 +79,10 @@ export default function MediaCard({item}) {
             <StarIcon
               color = {checkPetInFavorites(item.id) ? "secondary" : "primary"}/>
             </Button>
-
+{/* 
             <Button size="small" color="primary">
             <ChatBubbleOutlineIcon/>
-            </Button>
+            </Button> */}
       </CardActions>
     </Card>
   );

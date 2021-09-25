@@ -37,41 +37,9 @@ export default function AddressForm() {
                         required
                         id="address1"
                         name="address1"
-                        label="Адрес по паспорту"
+                        label="Адрес"
                         fullWidth
                         autoComplete="shipping address-line1"
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        id="address2"
-                        name="address2"
-                        label="Фактическое местопроживание"
-                        fullWidth
-                        autoComplete="shipping address-line2"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="city"
-                        name="city"
-                        label="Город/Село/ПГТ"
-                        fullWidth
-                        autoComplete="shipping address-level2"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField id="state" name="state" label="Область/район" fullWidth />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="zip"
-                        name="zip"
-                        label="Почтовый индекс"
-                        fullWidth
-                        autoComplete="shipping postal-code"
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -82,6 +50,16 @@ export default function AddressForm() {
                         label="Страна"
                         fullWidth
                         autoComplete="shipping country"
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        required
+                        id="city"
+                        name="city"
+                        label="Город"
+                        fullWidth
+                        autoComplete="shipping address-level2"
                     />
                 </Grid>
             </Grid>

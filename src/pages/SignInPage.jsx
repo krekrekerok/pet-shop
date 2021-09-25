@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { clientContext } from '../context/ClientContext';
 import { useHistory } from 'react-router';
+import { amber } from '@material-ui/core/colors';
 
 function Copyright() {
     return (
@@ -32,19 +33,14 @@ const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
     },
-    image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor:
-            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-    },
     paper: {
         margin: theme.spacing(8, 4),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        root:{
+            backgroundColor: "rgba(255, 255, 255, .7)",
+        }
     },
     avatar: {
         margin: theme.spacing(1),
@@ -56,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
+        backgroundColor: amber[800]
     },
 }));
 
@@ -126,7 +123,6 @@ export default function SignInPage() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            color="primary"
                             className={classes.submit}
                         >
                             Sign In

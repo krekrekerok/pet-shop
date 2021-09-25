@@ -14,6 +14,7 @@ import { Paper } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
+        
     },
     backButton: {
         marginRight: theme.spacing(1),
@@ -31,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
           marginBottom: theme.spacing(6),
           padding: theme.spacing(3),
         },
+        backgroundColor: "rgba(255, 255, 255, .8)",
+
       },
 }));
 
