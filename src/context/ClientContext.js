@@ -265,11 +265,9 @@ const ClientContextProvider = ({ children }) => {
 
     }, [state.pets])
 
-    // state.pets - это наш массив с существующими питомцами 
-    // функция fetchPets служит для 
-
     const indexOfLastPost = currentPage * postsPerPage
     const indexOfFirstPost = indexOfLastPost - postsPerPage
+    console.log(posts);
     console.log("slice",posts.slice(indexOfFirstPost, indexOfLastPost))
     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
 
@@ -288,12 +286,6 @@ const ClientContextProvider = ({ children }) => {
             payload: emptyPetsCountInCart
         })
     }
-    // регистрация
-    // авторизация
-    // подробнее
-    // корзина
-    // избранное
-    // оформление и оплата
 
     return (
         <clientContext.Provider value={{
