@@ -220,14 +220,6 @@ export default function NavBar() {
             />
           </div>
 
-          <Link className="unset" to="/">
-            <Typography className={classes.title} variant="h5" noWrap >
-              About Us
-            </Typography>
-          </Link>
-          <div>
-
-          </div>
           <Link className="unset" to="/catalog">
             <Typography className={classes.title} variant="h5" noWrap>
               Catalog

@@ -17,96 +17,96 @@ import { clientContext } from '../context/ClientContext';
 
 const useStyles = makeStyles({
     root: {
-      maxWidth: 210,
-      minWidth: 210,
-      margin: "0 10px 10px 10px",
-      width: 210,
-      height: 290,
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between"
+        maxWidth: 210,
+        minWidth: 210,
+        margin: "0 10px 10px 10px",
+        width: 210,
+        height: 290,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between"
     },
     media: {
-      height: 130,
-      backgroundSize: "contain",
-      backgroundColor: "rgb(197, 199, 214)"
+        height: 130,
+        backgroundSize: "contain",
+        backgroundColor: "rgb(197, 199, 214)"
     }
-  });
+});
 
 const FavoritesList = () => {
     const classes = useStyles();
-    const {favorites, getFavorites,toggleStarIcon, checkPetInFavorites, deleteProductFromFavorites} = useContext(clientContext)
+    const { favorites, getFavorites, toggleStarIcon, checkPetInFavorites, deleteProductFromFavorites } = useContext(clientContext)
 
-    useEffect(()=>{
+    useEffect(() => {
         getFavorites()
-    },[])
+    }, [])
 
-    console.log("favorite in Favorites List",favorites);
+    console.log("favorite in Favorites List", favorites);
 
     return (
         <div>
             <>
-            {
-                favorites ? (
-                    <div className="content">
-                        <div className="content-block">
-                            {
-                                favorites.pets.map(item =>(
-                                    <Card className={classes.root}>
-                                        <CardActionArea>
-                                            <CardMedia
-                                            className={classes.media}
-                                            image={item.pet.photo}
-                                            title={item.pet.title}
-                                            />
-                                            <CardContent>
-                                                <Typography noWrap  variant="h5" component="h2">
-                                                    {item.pet.breed}
-                                                </Typography>
-                                                <Typography variant="body2" color="textSecondary" component="p">
-                                                    <Truncate 
-                                                        lines = {1}
-                                                        ellipsis = {<span>...<a href = "/">Далее</a></span>} >
-                                                        {item.pet.description}
-                                                    </Truncate>
-                                                </Typography>
-                                                <Typography variant = "h6" component = "h1">
-                                                    Цена {item.pet.price} сом
-                                                </Typography>
-                                            </CardContent>
-                                        </CardActionArea>
+                {
+                    favorites ? (
+                        <div className="content">
+                            <div className="content-block">
+                                {
+                                    favorites.pets.map(item => (
+                                        <Card className={classes.root}>
+                                            <CardActionArea>
+                                                <CardMedia
+                                                    className={classes.media}
+                                                    image={item.pet.photo}
+                                                    title={item.pet.title}
+                                                />
+                                                <CardContent>
+                                                    <Typography noWrap variant="h5" component="h2">
+                                                        {item.pet.breed}
+                                                    </Typography>
+                                                    <Typography variant="body2" color="textSecondary" component="p">
+                                                        <Truncate
+                                                            lines={1}
+                                                            ellipsis={<span>...<a href="/catalog">Далее</a></span>} >
+                                                            {item.pet.description}
+                                                        </Truncate>
+                                                    </Typography>
+                                                    <Typography variant="h6" component="h1">
+                                                        Цена {item.pet.price} сом
+                                                    </Typography>
+                                                </CardContent>
+                                            </CardActionArea>
 
-                                        <CardActions className="card-btn">
-                                                <Button 
-                                                size="small" 
-                                                color="primary"
-                                                onClick={()=> toggleStarIcon(item.pet)}>
+                                            <CardActions className="card-btn">
+                                                <Button
+                                                    size="small"
+                                                    color="primary"
+                                                    onClick={() => toggleStarIcon(item.pet)}>
                                                     <StarIcon
-                                                        color = {checkPetInFavorites(item.pet.id) ? "secondary" : "primary"}
-                                                        
+                                                        color={checkPetInFavorites(item.pet.id) ? "secondary" : "primary"}
+
                                                     />
                                                 </Button>
 
                                                 <Button size="small" color="primary">
-                                                    <ChatBubbleOutlineIcon/>
+                                                    <ChatBubbleOutlineIcon />
                                                 </Button>
 
                                                 <Button
-                                                    onClick = {()=>deleteProductFromFavorites(item.pet.id)}
-                                                    color = "secondary">
-                                                    <HighlightOffIcon/>
+                                                    onClick={() => deleteProductFromFavorites(item.pet.id)}
+                                                    color="secondary">
+                                                    <HighlightOffIcon />
                                                 </Button>
-                                        </CardActions>
-                                    </Card>
-                                ))
-                            }
+                                            </CardActions>
+                                        </Card>
+                                    ))
+                                }
+                            </div>
                         </div>
-                    </div>
 
-                ) : (
-                    <CircularProgress color="secondary" />
-                )
-            }
+                    ) : (
+                        <CircularProgress color="secondary" />
+                    )
+                }
             </>
         </div>
     );

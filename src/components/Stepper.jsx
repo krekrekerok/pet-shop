@@ -27,11 +27,11 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(3),
         padding: theme.spacing(2),
         [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-          marginTop: theme.spacing(6),
-          marginBottom: theme.spacing(6),
-          padding: theme.spacing(3),
+            marginTop: theme.spacing(6),
+            marginBottom: theme.spacing(6),
+            padding: theme.spacing(3),
         },
-      },
+    },
 }));
 
 function getSteps() {
@@ -52,7 +52,7 @@ function getStepContent(stepIndex) {
 }
 
 export default function VerifyStepper() {
-    const {getCart} = useContext(clientContext)
+    const { getCart } = useContext(clientContext)
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
@@ -85,7 +85,7 @@ export default function VerifyStepper() {
                     {activeStep === steps.length ? (
                         <div align="center">
                             <Typography className={classes.instructions} variant="h3" >Оплачено</Typography>
-                            <Link to='/'>
+                            <Link to='/catalog'>
                                 <Button onClick={handleReset}>Reset</Button>
                             </Link>
                         </div>

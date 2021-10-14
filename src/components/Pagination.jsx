@@ -1,4 +1,3 @@
-import { Button } from "@material-ui/core";
 import React, { useContext } from 'react';
 import { clientContext } from '../context/ClientContext';
 import './Pagination.css';

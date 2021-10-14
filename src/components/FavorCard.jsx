@@ -31,9 +31,9 @@ const useStyles = makeStyles({
   }
 });
 
-export default function FavorCard({item}) {
+export default function FavorCard({ item }) {
   const classes = useStyles();
-  const {toggleStarIcon, checkPetInFavorites} = useContext(clientContext)
+  const { toggleStarIcon, checkPetInFavorites } = useContext(clientContext)
 
   return (
     <Card className={classes.root}>
@@ -44,34 +44,34 @@ export default function FavorCard({item}) {
           title={item.title}
         />
         <CardContent>
-            <Typography noWrap  variant="h5" component="h2">
-                {item.breed}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-                <Truncate 
-                    lines = {1}
-                    ellipsis = {<span>...<a href = "/">Далее</a></span>} >
-                    {item.description}
-                </Truncate>
-            </Typography>
-            <Typography variant = "h6" component = "h1">
-                Цена {item.price} сом
-            </Typography>
+          <Typography noWrap variant="h5" component="h2">
+            {item.breed}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            <Truncate
+              lines={1}
+              ellipsis={<span>...<a href="/catalog">Далее</a></span>} >
+              {item.description}
+            </Truncate>
+          </Typography>
+          <Typography variant="h6" component="h1">
+            Цена {item.price} сом
+          </Typography>
         </CardContent>
       </CardActionArea>
 
       <CardActions className="card-btn">
-            <Button 
-              size="small" 
-              color="primary"
-              onClick={()=> toggleStarIcon(item)}>
-            <StarIcon
-              color = {checkPetInFavorites(item.id) ? "secondary" : "primary"}/>
-            </Button>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => toggleStarIcon(item)}>
+          <StarIcon
+            color={checkPetInFavorites(item.id) ? "secondary" : "primary"} />
+        </Button>
 
-            <Button size="small" color="primary">
-            <ChatBubbleOutlineIcon/>
-            </Button>
+        <Button size="small" color="primary">
+          <ChatBubbleOutlineIcon />
+        </Button>
       </CardActions>
     </Card>
   );

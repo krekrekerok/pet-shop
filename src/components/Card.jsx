@@ -31,9 +31,9 @@ const useStyles = makeStyles({
   }
 });
 
-export default function MediaCard({item}) {
+export default function MediaCard({ item }) {
   const classes = useStyles();
-  const {toggleCartIcon, checkPetInCart, toggleStarIcon, checkPetInFavorites} = useContext(clientContext)
+  const { toggleCartIcon, checkPetInCart, toggleStarIcon, checkPetInFavorites } = useContext(clientContext)
 
   return (
     <Card className={classes.root}>
@@ -44,45 +44,47 @@ export default function MediaCard({item}) {
           title={item.title}
         />
         <CardContent>
-            <Typography noWrap  variant="h5" component="h2">
-                {item.breed}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-                <Truncate 
-                    lines = {1}
-                    ellipsis = {<span>...<a href = "/">Далее</a></span>} >
-                    {item.description}
-                </Truncate>
-            </Typography>
-            <Typography variant = "h6" component = "h1">
-                Цена {item.price} сом
-            </Typography>
+          <Typography noWrap variant="h5" component="h2">
+            {item.breed}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            <Truncate
+              lines={1}
+              ellipsis={<span>...<a href="/catalog">Далее</a></span>} >
+              {item.description}
+            </Truncate>
+          </Typography>
+          <Typography variant="h6" component="h1">
+            Цена {item.price} сом
+          </Typography>
         </CardContent>
       </CardActionArea>
 
       <CardActions className="card-btn">
-            <Button 
-              size="small" 
-              color="primary"
-              onClick={() => toggleCartIcon(item)}>
-            <ShoppingCartIcon
-              color = {checkPetInCart(item.id) ? "secondary" : "primary"}/>
-            </Button>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => toggleCartIcon(item)}>
+          <ShoppingCartIcon
+            color={checkPetInCart(item.id) ? "secondary" : "primary"} />
+        </Button>
 
-            <Button 
-              size="small" 
-              color="primary"
-              onClick={
-                ()=> {toggleStarIcon(item)
-                console.log("click on button",item)}
-                }>
-            <StarIcon
-              color = {checkPetInFavorites(item.id) ? "secondary" : "primary"}/>
-            </Button>
+        <Button
+          size="small"
+          color="primary"
+          onClick={
+            () => {
+              toggleStarIcon(item)
+              console.log("click on button", item)
+            }
+          }>
+          <StarIcon
+            color={checkPetInFavorites(item.id) ? "secondary" : "primary"} />
+        </Button>
 
-            <Button size="small" color="primary">
-            <ChatBubbleOutlineIcon/>
-            </Button>
+        <Button size="small" color="primary">
+          <ChatBubbleOutlineIcon />
+        </Button>
       </CardActions>
     </Card>
   );

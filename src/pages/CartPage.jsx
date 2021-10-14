@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import CartTable from '../components/CartTable';
 import NavBar from '../components/NavBar';
 import { clientContext } from '../context/ClientContext';
+import '../index.css'
 
 const CartPage = () => {
     const { petsCountInCart } = useContext(clientContext)
